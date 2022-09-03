@@ -1,20 +1,29 @@
-$primary-color: blue;
-$secondary-color: aqua;
+$color-1: #2B4141;
+$color-2: #0EB1D2;
+$color-3: #34E4EA;
+$color-4: #8AB9B5;
 
 .App{
-    height: 100%;
+    min-height: 100vh;
+    height: fit-content;
     width: 100%;
-    background-color: darkgray;
-    color: rgb(21, 34, 34);
+    background-color: $color-4;
+    color: $color-1;
+    display: flex;
+    flex-direction: column;
+
 
     header{
-        background-color: rgb(21, 34, 34);
+        background-color: $color-1;
         text-align: center;
         padding: 1.5rem 0 1.5rem 0;
         font-weight: bold;
         font-size: larger;
-        color: white;
+        color: $color-4;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        .title{
+            cursor: pointer;
+        }
     }
 
     .cardHolder{
@@ -22,6 +31,7 @@ $secondary-color: aqua;
         gap: 2rem;
         flex-wrap: wrap;
         justify-content: center;
+        padding: 1rem 0 1rem 0;
     }
 
     .card{
@@ -29,7 +39,7 @@ $secondary-color: aqua;
         flex-direction: column;
         gap: 0.5rem;
         width: 18rem;
-        background-color: yellow;
+        background-color: $color-2;
         border-radius: 10px;
         margin: 5px;
         padding: 10px;
@@ -41,8 +51,24 @@ $secondary-color: aqua;
             gap: 0.5rem;
             justify-content: space-between;
         }
+        .card_img{
+            flex-grow: 1;
+
+            img{
+                width: 100%;
+                height: 400px;
+                object-fit: cover;
+            }
+        }
         .card_title{
             font-weight: bold;
+            text-align: center;
+            font-size: 1.1em;
+        }
+        .card_content{
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
         }
         button{
             border-radius: 10px;
@@ -51,8 +77,59 @@ $secondary-color: aqua;
             cursor: pointer;
 
             &:hover{
-                background-color: $primary-color;
+                background-color: $color-3;
+                font-weight: bold;
             }
+        }
+    }
+    .Post{
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+    
+        .post{
+            display: flex;
+            flex-direction: column;
+            gap: 2;
+            width: 100%;
+            background-color: $color-4;
+            border-radius: 10px;
+            align-items: center;
+            flex-grow: 1;
+
+            .post_body{
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+            .post_img{
+                flex-grow: 1;
+                background-image: url('https://source.unsplash.com/random/1000x1000');
+                width: 100vw;
+                height: 50vh;
+
+                background-attachment: fixed;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-size: cover;
+
+            }
+            .post_title{
+                font-weight: bold;
+                text-align: center;
+                font-size: 3em;
+                color: $color-2;
+                filter: brightness(0);
+            }
+            .post_content{
+                max-width: 70ch;
+                text-align: center;
+                font-size: 1.5em;
+            }
+        }
+        .comments{
+            
         }
     }
 }
