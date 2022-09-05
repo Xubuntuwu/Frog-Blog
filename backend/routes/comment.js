@@ -18,10 +18,13 @@ router.get('/post/:postid', async (req, res, next)=>{
 
 // Create a comment on a certain post
 router.post('/post/:postid', async(req, res, next)=>{
+    console.log('new comment')
     new Comment({
         content: req.body.content,
         postid: mongoose.Types.ObjectId(req.params.postid),
         ownername: req.body.ownername,
+        // ownerid: req.body.ownerid,
+        location: req.headers['x-forwarded-for'] || req.socket.remoteAddress ,
     }).save((err, result)=>{
         if(err){
             return res.json({error: err});

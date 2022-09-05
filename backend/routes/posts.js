@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 // Import Mongoose Models
 const User = require('../models/user');
@@ -7,7 +8,15 @@ const Post = require('../models/post');
 const Comment = require('../models/comment');
 const { default: mongoose } = require('mongoose');
 
-router.get('/', async (req, res, next)=>{
+router.get('/', passport.authenticate('user_rule', {session: false}), async (req, res, next)=>{
+    const posts = await Post.find().populate('owner').lean().exec()
+        .catch((err)=> next(err));
+    const filterposts = posts.filter((post)=>{return post.public!==false});
+    res.json({posts: filterposts});
+    // res.json({mssg: 'Get all posts'});
+});
+
+router.get('/admin', passport.authenticate('admin_rule', {session: false}), async (req, res, next)=>{
     const posts = await Post.find().populate('owner').lean().exec()
         .catch((err)=> next(err));
     
@@ -15,12 +24,12 @@ router.get('/', async (req, res, next)=>{
     // res.json({mssg: 'Get all posts'});
 });
 
-router.post('/', (req, res, next)=>{
+router.post('/', passport.authenticate('admin_rule', {session: false}), (req, res, next)=>{
     new Post({
         title: req.body.title,
         content: req.body.content,
         public: req.body.public || false,
-        owner: mongoose.Types.ObjectId('6311d20f91590be401b53062'),
+        owner: req.body.ownerid ||mongoose.Types.ObjectId('6311d20f91590be401b53062'),
 
     }).save((err, post)=>{
         if(err){
@@ -31,14 +40,14 @@ router.post('/', (req, res, next)=>{
     // res.json({mssg: 'Create specific post'});
 });
 
-router.get('/:id', async (req, res, next)=>{
-    const post = await Post.find({_id: req.params.id}).populate('owner').lean().exec()
+router.get('/:id', passport.authenticate('user_rule', {session: false}), async (req, res, next)=>{
+    const post = await Post.findById(req.params.id).populate('owner').lean().exec()
     .catch((err)=> next(err));
     res.json({post: post});
     // res.json({mssg: 'Get specific post: '+ req.params.id});
 });
 
-router.patch('/:id', async(req, res, next)=>{
+router.patch('/:id', passport.authenticate('admin_rule', {session: false}), async(req, res, next)=>{
     const oldPost = await Post.find({_id: req.params.id}).lean().exec()
     
     const title = req.body.title || oldPost.title;
@@ -51,7 +60,8 @@ router.patch('/:id', async(req, res, next)=>{
     // res.json({mssg: `update specific post: ${req.params.id}`});
 });
 
-router.delete('/:id', async(req, res, next)=>{
+router.delete('/:id', passport.authenticate('admin_rule', {session: false}), async(req, res, next)=>{
+    await Comment.deleteMany({postid: req.params.id}).lean().exec()
     const deleted = await Post.findByIdAndDelete(req.params.id).lean().exec()
         .catch(err=> next(err));
     res.json({post: deleted, mssg: 'delete success'});

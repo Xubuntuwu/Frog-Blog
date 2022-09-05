@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Route, Routes, Link, useNavigate } from "react-router-dom";
-import Post from './Post';
+// import Post from './Post';
 
 function Main() {
   const navigate = useNavigate();
@@ -8,14 +8,14 @@ function Main() {
   const [posts, setPosts] = useState(null);
 
   const login = {
-    username: process.env.REACT_APP_USERNAME,
-    password: process.env.REACT_APP_PASSWORD,
+    type: process.env.REACT_APP_APIKEY_TYPE,
+    key: process.env.REACT_APP_APIKEY_KEY,
   };
   const params = new URLSearchParams(login);
 
   useEffect(()=>{
     // Get Token
-    fetch('http://localhost:3000/api/login', {
+    fetch('/api/login/user', {
       method: 'POST',
       body: params,
     })
@@ -33,7 +33,7 @@ function Main() {
   useEffect(()=>{
     // Get Posts
     if(token !==null){
-      fetch('http://localhost:3000/api/posts', {
+      fetch('/api/posts', {
         method: 'GET',
         headers: new Headers({
           'Authorization': 'Bearer ' + token,

@@ -1,5 +1,5 @@
 $color-1: #2B4141;
-$color-2: #0EB1D2;
+$color-2: hsl(190, 87%, 44%);
 $color-3: #34E4EA;
 $color-4: #8AB9B5;
 
@@ -15,14 +15,28 @@ $color-4: #8AB9B5;
 
     header{
         background-color: $color-1;
-        text-align: center;
-        padding: 1.5rem 0 1.5rem 0;
         font-weight: bold;
         font-size: larger;
         color: $color-4;
         font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+        padding: 1.5rem 1rem 1.5rem 1rem;
+        gap: 1rem;
+        display: grid;
+        grid-template-columns: repeat(11, 1fr);
+        grid-template-rows: 1;
         .title{
             cursor: pointer;
+            grid-column: 2/-1;
+            text-align: center;
+        }
+        .login, .adminlogout{
+            cursor: pointer;
+            grid-column: -1;
+        }
+        .adminlogout{
+            display: flex;
+            gap: 1rem;
         }
     }
 
@@ -39,7 +53,10 @@ $color-4: #8AB9B5;
         flex-direction: column;
         gap: 0.5rem;
         width: 18rem;
-        background-color: $color-2;
+        background-color: hsl(190, 87%, 10%);
+        // background-color: white;
+        color: hsl(190, 87%, 94%);
+        // color: hsl(190, 87%, 24%);
         border-radius: 10px;
         margin: 5px;
         padding: 10px;
@@ -75,9 +92,10 @@ $color-4: #8AB9B5;
             border: none;
             padding: 0.5rem;
             cursor: pointer;
-
+            transition: 500ms color;
             &:hover{
-                background-color: $color-3;
+                background-color: $color-1;
+                color: white;
                 font-weight: bold;
             }
         }
@@ -128,8 +146,281 @@ $color-4: #8AB9B5;
                 font-size: 1.5em;
             }
         }
-        .comments{
+        .Commentsection{
+            background-color: wheat;
+            margin: 1rem 0 0 0;
+            padding: 0 0 1rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            hr{
+                margin-top: 0;
+                width: 100%;
+            }
+            >.title{
+                text-align: center;
+            }
+            .comments{
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+                width: min(100vw, 1000px);
+                .comment{
+                    font-size: 1.2em;
+                    border-radius: 10px;
+                    // border: 2px solid $color-1;
+                    padding: 5px;
+
+                    .comment_name{
+                        font-weight: bold;
+                        width: fit-content;
+                        // border-bottom: 1px solid $color-1;
+                        margin-bottom: 0.4rem;
+                        color: black;
+                    }
+                    .comment_text{
+                        padding: 5px 10px 5px 10px;
+                        border: 2px solid $color-1;
+                        border-radius: 4px;
+                    }
+                }
+            }
+            .create-comment{
+                hr{
+                    margin-top: 2rem;
+                    margin-bottom: 0;
+                }
+                form{
+                    gap: 0.5rem;
+                }
+                form, form div label{
+                    display: flex;
+                    flex-direction: column;
+                    width: min(100vw, 1000px);
+                    input, textarea{
+                        flex-grow: 1;
+                        border-radius: 8px;
+                    }
+                    textarea{
+                        min-height: 5rem;
+                    }
+                    button{
+                        border-radius: 10px;
+                        border: none;
+                        padding: 0.5rem;
+                        font-weight: bold;
+                        font-size: large;
+                        background-color: $color-1;
+                        color: $color-4;
+                        &:hover{
+                            cursor: pointer;
+                            color: $color-1;
+                            background-color: $color-4;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .Admin{
+        display: flex;
+        flex-grow: 1;
+        flex-direction: column;
+        align-items: center;
+        padding: 1rem 0 1rem 0;
+        .Posts{
+            display: flex;
+            flex-direction: column;
+            font-size: larger;
+            gap: 2.5rem;
+            width: min(100vw, 1000px);
+            .postHolder{
+                border-radius: 10px;
+                border: 1px solid $color-1;
+                padding: 2rem;
+            }
+            .full_post_body, .full_post_body_edit{
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                label{
+                    display: flex;
+                    flex-direction: column;
+                }
+                input, textarea{
+                    font-family: inherit;
+                    font-weight: inherit;
+                    background-color: wheat;
+                    border: none;
+                    padding: 0.5rem 0 0.5rem 0;
+                    font-size: larger;
+                }
+                input{
+                    font-weight: bold;
+                }
+                textarea{
+                    min-width: 100%;
+                    max-width: 100%;
+                    min-height: max-content;
+                }
+                .full_post_header, .full_post_title_edit{
+                    font-weight: bold;
+                    display: flex;
+                    justify-content: space-between;
+                    .full_post_title, .full_post_content_edit{
+                        font-size: larger;
+                    }
+                    .full_post_status{
+                        color: brown;
+                    }
+                }
+                .full_post_buttoncontainer{
+                    display: flex;
+                    justify-content: center;
+                    gap: 1rem;
+                }
+
+            }
+        }
+        .create-post{
+            hr{
+                margin-top: 2rem;
+                margin-bottom: 0;
+            }
+            form{
+                gap: 0.5rem;
+            }
+            form, form div label{
+                display: flex;
+                flex-direction: column;
+                width: min(100vw, 1000px);
+                input, textarea{
+                    flex-grow: 1;
+                    border-radius: 8px;
+                    padding: 1rem;
+                }
+                input#publish{
+                    height: 2rem;
+                    width: 2rem;
+                    align-self: center;
+                }
+                textarea{
+                    min-height: 5rem;
+                }
+                button{
+                    border-radius: 10px;
+                    border: none;
+                    padding: 0.5rem;
+                    font-weight: bold;
+                    font-size: large;
+                    background-color: $color-1;
+                    color: $color-4;
+                    &:hover{
+                        cursor: pointer;
+                        color: $color-1;
+                        background-color: $color-2;
+                    }
+                }
+            }
+        }
+        
+        .btn_primary{
+            background-color: $color-1;
+            color: $color-4;
+            border-radius: 5px;
+            border: none;
+            padding: 1rem;
+            font-size: large;
+            &:hover{
+                background-color: hsl(175, 14%, 49%);
+                color: $color-1;
+                transition: 1s color;
+                cursor: pointer;
+            }
+        }
+        .btn_danger{
+            background-color: brown;
+            color: $color-4;
+            border-radius: 5px;
+            border: none;
+            padding: 1rem;
+            font-size: large;
+            &:hover{
+                background-color: rgb(151, 0, 0);
+                color: black;
+                transition: 1s color, 2s background-color;
+                cursor: pointer;
+            }
+        }
+        .btn_secondary{
+            background-color: $color-4;
+            color: $color-1;
+            border-radius: 5px;
+            border: 1px solid $color-1;
+            padding: 1rem;
+            font-size: large;
+            &:hover{
+                background-color: $color-1;
+                color: $color-4;
+                transition: 1s color;
+                cursor: pointer;
+            }
+        }
+    }
+    .Adminlogin{
+        display: flex;
+        flex-grow: 1;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .container{
+            display: flex;
+            height: 100%;
+            flex-grow: 1;
+
+            form{
+                display: flex;
+                min-width: min(500px, 100vw);
+                flex-direction: column;
+                justify-content: center;
+                gap: 0.5rem;
+                label{
+                    display: flex;
+                    flex-direction: column;
+                }
+                input{
+                    padding: 0.5rem;
+                    border-radius: 3px;
+                    border: none;
+                }
+                button{
+                    padding: 1rem;
+                    border-radius: 5px;
+                    border: none;
+                    font-weight: bold;
+                    font-size: large;
+                    background-color: $color-1;
+                    color: white;
+                    &:hover {
+                        background-color: $color-3;
+                        color: $color-1;
+                        transition: color 1s, background-color 1s;
+                        cursor: pointer;
+                    }
+                }
+            }
             
         }
     }
+}
+
+pre{
+    font-family: inherit;
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }

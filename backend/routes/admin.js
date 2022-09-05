@@ -85,6 +85,7 @@ router.patch('/:id', async(req, res, next)=>{
 
 
 // Delete specific admin user
+// this requires a password to be sent in in the body?
 // This deletes their posts too!
 router.delete('/:id', async(req, res, next)=>{
     const deleted = await User.findById(req.params.id).lean().exec()

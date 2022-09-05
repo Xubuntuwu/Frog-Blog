@@ -9,6 +9,7 @@ const Comment = mongoose.model(
         postid: {type: Schema.Types.ObjectId, ref: 'Post', required: true},
         ownerid: {type: Schema.Types.ObjectId, ref: 'User', required: false},
         ownername: {type: String, required: false},
+        location: {type: String, required: true}
     }, {timestamps: true})
 )
 

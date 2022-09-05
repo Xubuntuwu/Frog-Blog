@@ -43,6 +43,7 @@ app.get('/', (req, res)=>{
 });
 
 // Login and get token
+// user and admin optional
 app.use('/api/login', auth);
 
 // Test token access
@@ -51,9 +52,9 @@ app.get('/test', passport.authenticate('jwt', {session: false}) ,(req, res)=>{
 });
 
 // All routes
-app.use('/api/posts', passport.authenticate('jwt', {session: false}), postRouter);
-app.use('/api/admin', passport.authenticate('jwt', {session: false}), adminRouter);
-app.use('/api/comment', passport.authenticate('jwt', {session: false}), commentRouter);
+app.use('/api/posts', postRouter);
+app.use('/api/admin', passport.authenticate('admin_rule', {session: false}), adminRouter);
+app.use('/api/comments', passport.authenticate('user_rule', {session: false}), commentRouter);
 
 const port = process.env.PORT || 3000;
 app.listen(port, ()=>{
