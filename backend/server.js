@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cors = require('cors');
+const path = require('path');
 
 // Requiring Routes
 const postRouter = require('./routes/posts');
@@ -50,9 +51,9 @@ app.use((req, res, next)=>{
 app.use('/api/login', auth);
 
 // Test token access
-app.get('/test', passport.authenticate('jwt', {session: false}) ,(req, res)=>{
-    res.json({mssg: 'test one two three'});
-});
+// app.get('/test', passport.authenticate('jwt', {session: false}) ,(req, res)=>{
+//     res.json({mssg: 'test one two three'});
+// });
 
 // All routes
 app.use('/api/posts', postRouter);
