@@ -41,9 +41,9 @@ app.use((req, res, next)=>{
 });
 
 // Test server, no token
-app.get('/', (req, res)=>{
-    res.json({mssg: 'test one two three'});
-});
+// app.get('/', (req, res)=>{
+//     res.json({mssg: 'test one two three'});
+// });
 
 // Login and get token
 // user and admin optional
@@ -58,6 +58,11 @@ app.get('/test', passport.authenticate('jwt', {session: false}) ,(req, res)=>{
 app.use('/api/posts', postRouter);
 app.use('/api/admin', passport.authenticate('admin_rule', {session: false}), adminRouter);
 app.use('/api/comments', passport.authenticate('user_rule', {session: false}), commentRouter);
+
+// All other GET requests not handled before will return our React app
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../frontend_main/build', 'index.html'));
+});
 
 const port = process.env.PORT || 3000;
 app.listen(port, ()=>{
