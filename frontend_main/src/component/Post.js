@@ -115,7 +115,7 @@ function Post(props) {
         </div>
         <div className='post_body'>
           <div className='post_title'>{post.title}</div>
-          <div className='post_content'>{post.content}</div>
+          <pre className='post_content'>{post.content}</pre>
         </div>
       </div>
       : loadedPost!==null?
