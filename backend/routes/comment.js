@@ -10,7 +10,7 @@ const Comment = require('../models/comment');
 
 // See all comments of a certain post
 router.get('/post/:postid', async (req, res, next)=>{
-    const comments = await Comment.find({posid: req.params.postid}).lean().exec()
+    const comments = await Comment.find({postid: req.params.postid}).lean().exec()
         .catch((err)=> next(err));
     
     res.json({comments});
@@ -18,7 +18,7 @@ router.get('/post/:postid', async (req, res, next)=>{
 
 // Create a comment on a certain post
 router.post('/post/:postid', async(req, res, next)=>{
-    console.log('new comment')
+    // console.log('new comment')
     new Comment({
         content: req.body.content,
         postid: mongoose.Types.ObjectId(req.params.postid),
