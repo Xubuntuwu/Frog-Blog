@@ -84,13 +84,9 @@ function Post(props) {
     const content = document.getElementById('comment_content').value;
     const form = document.querySelector('form');
 
-    const commentdata = props.adminID ? {
+    const commentdata = {
       ownername,
       content,
-    } : {
-      ownerid: props.adminID,
-      ownername: false,
-      content: content,
     };
     const params = new URLSearchParams(commentdata);
 
