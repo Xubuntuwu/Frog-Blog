@@ -31,6 +31,9 @@ app.use(express.urlencoded({ extended: true }));
 localPassport.Setup();
 jwtPassport.Setup();
 
+// Have Node serve the files for our built React app
+app.use(express.static(path.resolve(__dirname, '../frontend_main/build')));
+
 // Middleware Logger
 app.use((req, res, next)=>{
     console.log(req.path, req.method);
